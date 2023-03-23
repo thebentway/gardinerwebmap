@@ -63,7 +63,7 @@ map.addControl(control);
 map.on("load", async () => {
 
     const geojson_url = await fetch(
-        'https://ananmaysharan.github.io/gardinerarchive/combined_images.geojson'
+        'https://thebentway.github.io/gardinerwebmap/combined_images.geojson'
     );
 
     const geojson_data = await geojson_url.json();
@@ -111,7 +111,7 @@ map.on("load", async () => {
     // adding shorelines
 
     const shoreline_geojson_url = await fetch(
-        'https://raw.githubusercontent.com/ananmaysharan/gardinerarchive/main/geojsons/shorelines.geojson'
+        'https://thebentway.github.io/gardinerwebmap/geojsons/shorelines.geojson'
     );
 
     const shoreline_geojson_data = await shoreline_geojson_url.json();
@@ -219,11 +219,11 @@ map.on("load", async () => {
     // adding shoreline menu
 
     // If these layers were not added to the map, abort
-    if (!map.getLayer('1818') || !map.getLayer('1884') || !map.getLayer('1910')) {
+    if (!map.getLayer('1818') || !map.getLayer('1884') || !map.getLayer('1910') || !map.getLayer('2022')) {
         return;
     }
     // Enumerate ids of the layers.
-    const toggleableLayerIds = ['1818', '1884', '1910'];
+    const toggleableLayerIds = ['1818', '1884', '1910', '2022'];
 
 
     function zoomToLayerExtentShoreline(layerId) {
@@ -346,7 +346,7 @@ map.on("load", async () => {
 
 
     /*--------------------------------------------------------------------
-    PRESENT MAP
+    PRESENT FEATURES
     --------------------------------------------------------------------*/
 
     // gardiner route
@@ -402,27 +402,6 @@ map.on("load", async () => {
         }
     );
 
-    // green spaces
-
-    map.addSource('green-spaces', {
-        'type': 'vector',
-        'url': 'mapbox://thebentway.7f6t42ng'
-    });
-
-    map.addLayer({
-        'id': 'green-spaces',
-        'type': 'fill',
-        'source': 'green-spaces',
-        'layout': {
-            'visibility': 'none'
-        },
-        'paint': {
-            'fill-color': '#166E3A', // green color fill
-            'fill-opacity': 0.8
-        },
-        'source-layer': 'green_spaces_present-84lch6',
-    });
-
     // 3d buildings
 
     const layers = map.getStyle().layers;
@@ -474,7 +453,7 @@ map.on("load", async () => {
     );
 
     const bentway_geojson_url = await fetch(
-        'https://ananmaysharan.github.io/gardinerarchive/bentway_projects.geojson'
+        'https://thebentway.github.io/gardinerwebmap/bentway_projects.geojson'
     );
 
     const bentway_geojson_data = await bentway_geojson_url.json();
@@ -546,17 +525,15 @@ map.on("load", async () => {
     // BUTTONS
 
     // If these layers were not added to the map, abort
-    if (!map.getLayer('bentway')) {
+    if (!map.getLayer('bentway_photos') || !map.getLayer('add-3d-buildings')) {
         return;
     }
     // Enumerate ids of the layers.
-    const PresentToggleableLayerIds = ['bentway', 'green-spaces', 'add-3d-buildings', '2022'];
+    const PresentToggleableLayerIds = ['bentway_photos', 'add-3d-buildings'];
 
     const PresentTagIdToTextContent = {
-        'bentway': 'The Bentway',
-        'green-spaces': 'Green Spaces',
+        'bentway_photos': 'The Bentway',
         'add-3d-buildings': 'Buildings',
-        '2022': 'Shoreline'
     };
 
 
@@ -602,17 +579,22 @@ map.on("load", async () => {
                     map.easeTo({ zoom: 15, pitch: 60 })
                 }
 
+                if (clickedLayer === 'bentway_photos') {
+                    map.fitBounds(bentwayBounds)    
+                    map.setLayoutProperty('bentway', 'visibility', 'visible');
+                }
+
             } else {
                 this.className = '';
-                if (clickedLayer != 'bentway') { // if it isn't the bentway layer, turn off vis and set map extent to gardiner
                     map.setLayoutProperty(
                         clickedLayer,
                         'visibility',
                         'none'
                     );
-                    map.easeTo({ zoom: 13, pitch: 0 })
-                } else {
-                    map.fitBounds(bentwayBounds)
+                map.easeTo({ zoom: 13, pitch: 0 })
+                
+                if (clickedLayer === 'bentway_photos') {
+                    map.setLayoutProperty('bentway', 'visibility', 'none');
                 }
             }
         };
@@ -620,248 +602,6 @@ map.on("load", async () => {
         const layers = document.getElementById('present-menu');
         layers.appendChild(link);
     }
-
-
-    /*--------------------------------------------------------------------
-    FUTURE MAP
-    --------------------------------------------------------------------*/
-
-    // ADDING STATION
-
-    const size = 100;
-
-    // This implements `StyleImageInterface`
-    // to draw a pulsing dot icon on the map.
-    const pulsingDot = {
-        width: size,
-        height: size,
-        data: new Uint8Array(size * size * 4),
-
-        // When the layer is added to the map,
-        // get the rendering context for the map canvas.
-        onAdd: function () {
-            const canvas = document.createElement('canvas');
-            canvas.width = this.width;
-            canvas.height = this.height;
-            this.context = canvas.getContext('2d');
-        },
-
-        // Call once before every frame where the icon will be used.
-        render: function () {
-            const duration = 1000;
-            const t = (performance.now() % duration) / duration;
-
-            const radius = (size / 2) * 0.3;
-            const outerRadius = (size / 2) * 0.7 * t + radius;
-            const context = this.context;
-
-            // Draw the outer circle.
-            context.clearRect(0, 0, this.width, this.height);
-            context.beginPath();
-            context.arc(
-                this.width / 2,
-                this.height / 2,
-                outerRadius,
-                0,
-                Math.PI * 2
-            );
-            context.fillStyle = `rgba(156, 227, 255, ${1 - t})`;
-            context.fill();
-
-            // Draw the inner circle.
-            context.beginPath();
-            context.arc(
-                this.width / 2,
-                this.height / 2,
-                radius,
-                0,
-                Math.PI * 2
-            );
-            context.fillStyle = 'rgba(30, 168, 224, 1)';
-            context.strokeStyle = 'white';
-            context.lineWidth = 2 + 4 * (1 - t);
-            context.fill();
-            context.stroke();
-
-            // Update this image's data with data from the canvas.
-            this.data = context.getImageData(
-                0,
-                0,
-                this.width,
-                this.height
-            ).data;
-
-            // Continuously repaint the map, resulting
-            // in the smooth animation of the dot.
-            map.triggerRepaint();
-
-            // Return `true` to let the map know that the image was updated.
-            return true;
-        }
-    };
-
-    map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
-
-    map.addSource('exhibition-station', {
-        'type': 'geojson',
-        'data': {
-            'type': 'FeatureCollection',
-            'features': [
-                {
-                    // feature for Ontario Line
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [
-                            -79.419203, 43.635915
-                        ]
-                    },
-                    'properties': {
-                        'title': 'Ontario Line Exhibhition Station',
-                        'description': "<p>The Ontario Line station at Exhibition will create a connection to the GO Transit rail network and bring the subway system closer to many homes and businesses in the growing and vibrant Liberty Village community. Exhibition Station serves one of the most popular destinations for sports, concerts and trade shows in the country, not to mention family attractions like the CNE.</p>"
-                    }
-                }
-            ]
-        }
-    });
-
-    map.addLayer({
-        'id': 'exhibition-station',
-        'type': 'symbol',
-        'source': 'exhibition-station',
-        'layout': {
-            'icon-image': 'pulsing-dot',
-            'visibility': 'none'
-        }
-    });
-
-    // POPUP FOR EXHBI
-
-    // Create a popup, but don't add it to the map yet.
-    const future_popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false
-    });
-
-    map.on('mouseenter', 'exhibition-station', (e) => {
-        // Change the cursor style as a UI indicator.
-        map.getCanvas().style.cursor = 'pointer';
-
-        // Copy coordinates array.
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const description = e.features[0].properties.description;
-        const title = e.features[0].properties.title;
-
-
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        // Populate the popup and set its coordinates
-        // based on the feature found.
-        future_popup.setLngLat(coordinates).setHTML("<b>" + title + "</b>" + "<br>" + description).addTo(map);
-    });
-
-    map.on('mouseleave', 'exhibition-station', () => {
-        map.getCanvas().style.cursor = '';
-        future_popup.remove();
-    });
-
-    const ontarioline_geojson_url = await fetch(
-        'https://raw.githubusercontent.com/ananmaysharan/gardinerarchive/main/geojsons/ontario-line.geojson'
-    );
-
-    const ontarioline_geojson_data = await ontarioline_geojson_url.json();
-
-    map.addSource('ontario-line-route', {
-        'type': 'geojson',
-        'data': ontarioline_geojson_data
-    });
-
-    map.addLayer(
-        {
-            'id': 'ontario-line',
-            'name': 'Ontario Line',
-            'type': 'line',
-            'source': 'ontario-line-route',
-            //'source-layer': 'ontario-line-7ea882',
-            'layout': {
-                'line-join': 'round',
-                'line-cap': 'round',
-                'visibility': 'none'
-            },
-            'paint': {
-                'line-color': '#1ea9e0',
-                'line-width': 5,
-                'line-opacity': 0.6
-            },
-        }, 'exhibition-station'
-    );
-
-
-
-
-    // TURNING ON AND OFF BASED ON PAST PRESENT FUTURE
-
-    // Get the radio button elements
-    const radios = document.querySelectorAll('[name="tabs"]');
-
-    // Add event listener to the radio buttons
-    radios.forEach(function (radio) {
-        radio.addEventListener('click', function () {
-            if (radio.id === 'radio-1' && radio.checked) {
-                map.setLayoutProperty('bentway_photos', 'visibility', 'none'); // bw photos
-                map.setLayoutProperty('photos', 'visibility', 'visible'); // archival photos
-                map.setLayoutProperty('bentway', 'visibility', 'none'); // bentway
-                map.setLayoutProperty('exhibition-station', 'visibility', 'none'); // ex station ontario line
-                map.setLayoutProperty('ontario-line', 'visibility', 'none'); // ex station ontario line
-                document.getElementById('tagmenu').style.display = 'flex';
-                document.getElementById('menu').style.display = 'flex';
-                document.getElementById('present-menu').style.display = 'none';
-                document.getElementById('legend').style.display = 'none';
-                document.getElementById('future-legend').style.display = 'none';
-                document.getElementById('future-action').style.display = 'none';
-
-
-
-
-            } else if (radio.id === 'radio-2' && radio.checked) {
-                map.setLayoutProperty('bentway_photos', 'visibility', 'visible'); // bw
-                map.setLayoutProperty('photos', 'visibility', 'none'); // archival photos
-                map.setLayoutProperty('bentway', 'visibility', 'visible'); // bentway
-                map.setLayoutProperty('exhibition-station', 'visibility', 'none'); // ex station ontario line
-                map.setLayoutProperty('ontario-line', 'visibility', 'none'); // ex station ontario line
-                document.getElementById('present-menu').style.display = 'flex';
-                document.getElementById('present-menu').style.top = '10px'; // move layers menu to top
-                document.getElementById('tagmenu').style.display = 'none';
-                document.getElementById('menu').style.display = 'none';
-                document.getElementById('legend').style.display = 'flex';
-                document.getElementById('future-legend').style.display = 'none';
-                document.getElementById('future-action').style.display = 'none';
-
-
-
-
-            } else if (radio.id === 'radio-3' && radio.checked) {
-                map.setLayoutProperty('bentway_photos', 'visibility', 'none'); // bw
-                map.setLayoutProperty('photos', 'visibility', 'none'); // archival
-                map.setLayoutProperty('bentway', 'visibility', 'visible'); // bentway
-                map.setLayoutProperty('exhibition-station', 'visibility', 'visible'); // ex station ontario line
-                map.setLayoutProperty('ontario-line', 'visibility', 'visible'); // ex station ontario line
-                document.getElementById('tagmenu').style.display = 'none';
-                document.getElementById('menu').style.display = 'none';
-                document.getElementById('legend').style.display = 'none';
-                document.getElementById('future-legend').style.display = 'flex';
-                document.getElementById('future-action').style.display = 'inline-block';
-
-
-
-            }
-        });
-    });
 
     /*--------------------------------------------------------------------
     INDIGGENOUS SETUP
