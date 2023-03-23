@@ -119,51 +119,54 @@ map.on("load", async () => {
 
     map.addSource('shoreline_overlay', {
         'type': 'vector',
-        'url': 'mapbox://thebentway.0ay4buvn'
+        'url': 'mapbox://thebentway.0i43v4qd'
     });
 
     map.addLayer({
         'id': '1818',
-        'type': 'fill',
+        'type': 'line',
         'source': 'shoreline_overlay',
         'layout': {
             'visibility': 'none'
         },
         'paint': {
-            'fill-color': '#409cf7', // blue color fill
-            'fill-opacity': 0.8
+            'line-color': '#409cf7', // blue color fill
+            'line-width': 5, 
+            'line-opacity': 0.8
         },
-        'source-layer': 'shorelines_polygons-35i1v2',
+        'source-layer': 'shorelines_merged-5es47o',
         filter: ["all", ["==", "year", 1818]]
     });
 
     map.addLayer({
         'id': '1884',
-        'type': 'fill',
+        'type': 'line',
         'source': 'shoreline_overlay',
         'layout': {
             'visibility': 'none'
         },
         'paint': {
-            'fill-color': '#01468a', // blue color fill
-            'fill-opacity': 0.8
+            'line-color': '#01468a', // blue color fill
+            'line-width': 5, 
+            'line-opacity': 0.8
         },
-        'source-layer': 'shorelines_polygons-35i1v2',
+        'source-layer': 'shorelines_merged-5es47o',
         filter: ["all", ["==", "year", 1884]]
     });
 
     map.addLayer({
         'id': '1910',
-        'type': 'fill',
+        'type': 'line',
         'source': 'shoreline_overlay',
         'layout': {
             'visibility': 'none'
         },
         'paint': {
-            'fill-color': '#00264d', // blue color fill
-            'fill-opacity': 0.8
+            'line-color': '#00264d', // blue color fill
+            'line-width': 5, 
+            'line-opacity': 0.8
         },
-        'source-layer': 'shorelines_polygons-35i1v2',
+        'source-layer': 'shorelines_merged-5es47o',
         filter: ["all", ["==", "year", 1910]]
     });
 
@@ -178,7 +181,7 @@ map.on("load", async () => {
             'fill-color': '#001429', // blue color fill
             'fill-opacity': 0.8
         },
-        'source-layer': 'shorelines_polygons-35i1v2',
+        'source-layer': 'shorelines_merged-5es47o',
         filter: ["all", ["==", "year", 2022]]
     });
 
