@@ -4,11 +4,6 @@ MAP SETUP
 
 mapboxgl.accessToken = "pk.eyJ1IjoidGhlYmVudHdheSIsImEiOiJjbGYxZDF2YzEwNzYyM3lwamZpN2l5bTBvIn0.qbdgGsK7vFgXT89nqeWsOQ"; //bentway account token
 
-const bounds = [
-    [-79.432709, 43.615221], // Southwest coordinates (long, lat)
-    [-79.301808, 43.900911] // Northeast coordinates (long, lat)
-];
-
 const maxBounds = [
     [-79.6772, 43.4400], // SW coords
     [-79.04763, 44.03074] // NE coords
