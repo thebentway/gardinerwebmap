@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap');
+    </style>
+
+    <!-- Turf.js -->
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+
+
+    <!-- Slider -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.css" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js'></script>
+
+    <!-- Moment.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+</head>
+
+<body>
+    <div class="past-menus">
+        <nav id="tagmenu"></nav>
+        <nav id="menu" class="menu"></nav>
+        <nav id="present-menu" class="menu"></nav>
+    </div>
+    <div id="map"></div>
+    <div id="info"></div>
+    <div class="container">
+        <div class="tabs">
+            <input type="radio" id="radio-1" name="tabs" checked />
+            <label class="tab" for="radio-1">Past</label>
+            <input type="radio" id="radio-2" name="tabs" />
+            <label class="tab" for="radio-2">Present</label>
+            <input type="radio" id="radio-3" name="tabs" />
+            <label class="tab" for="radio-3"> Future</label>
+            <span class="glider"></span>
+        </div>
+    </div>
+    <div id='legend' class='legend'>
+        <div><span style='background-color: #fdd100'></span>Bentway Site</div>
+        <div><span style='background-color: #dbf2eb'></span>Gardiner Expressway</div>
+        <div><span style='background-color: #166E3A'></span>Green Spaces</div>
+        <div><span style='background-color: #7d7d7d'></span>Buildings</div>
+        <div><span style='background-color: #001429'></span>Shoreline</div>
+    </div>
+    <div id='future-legend' class='legend'>
+        <div><span style='background-color: #fdd100'></span>Bentway Site</div>
+        <div><span style='background-color: #dbf2eb'></span>Gardiner Expressway</div>
+        <div><span style='background-color: #1ea9e0'></span>Ontario Line</div>
+        <div><span style='background-color: #001429'></span>Port Lands</div>
+    </div>
+    <div id="future-action">
+        <p><b>What’s Missing?</b>
+            <br><br>
+
+            What is also important to consider is the stories that are not told by this map. The space under the
+            Gardiner Expressway has historically been, and continues to be, a place for respite and refuge for many
+            people, including for unhoused populations.
+            <br><br>
+            We note that as we plan for the future of the space under the Gardiner, we must aim to meet the needs of all
+            Torontonians and learn from this critical community.
+            <br><br>
+            <b>What’s Next? </b>
+            <br><br>
+            The future of the space under the Gardiner Expressway is still being molded – read the report to learn even
+            more about the future of this space and how you can help shape it.
+        </p>
+        <button id="ugprp" class="button">Read the Under Gardiner Project Realm Plan</button>
+    </div>
+    <button id="fly" class="button">View Indigenous Territories</button>
+    <script src="rangeSlider.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
