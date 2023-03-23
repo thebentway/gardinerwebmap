@@ -9,13 +9,18 @@ const bounds = [
     [-79.301808, 43.900911] // Northeast coordinates (long, lat)
 ];
 
+const maxBounds = [
+    [-79.6772, 43.4400], // SW coords
+    [-79.04763, 44.03074] // NE coords
+];
+
 // create map
 const map = new mapboxgl.Map({
     container: "map", // container ID
     style: "mapbox://styles/thebentway/clf1fgyov008v01ns3szd1b9z",
     center: [-79.38633, 43.64015], // starting center in [lng, lat]
     zoom: 13,
-    // maxBounds: bounds // Set the map's geographical boundaries.
+    maxBounds: maxBounds // Set the map's geographical boundaries.
 });
 
 // adding title/logo
