@@ -11,6 +11,13 @@ body {
   width: 100%;
 }
 
+#elements-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 
 /* POPUP */
 
@@ -161,7 +168,7 @@ body {
   display: flex;
   float: right;
   flex-direction: column;
-  margin-right:1em;
+  padding:1em;
 }
 
 
