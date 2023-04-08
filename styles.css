@@ -12,8 +12,6 @@ body {
 }
 
 
-
-
 /* POPUP */
 
 .popupImage {
@@ -49,21 +47,11 @@ body {
 /* TITLE */
 
 #info {
-  display: table;
+  display: flex;
   position: relative;
-  margin: 15px auto;
-  margin-bottom: -15px;
-  word-wrap: anywhere;
-  white-space: pre-wrap;
-  padding: 12px;
-  border-radius: 4px;
-  font-size: 24px;
-  text-align: center;
-  color: #111;
-  /* border: 1px solid #6ECCB1; */
-  /* background: #fff; */
-  z-index: 0;
-  font-family: 'Libre Franklin', sans-serif;
+  margin: 1em auto;
+  z-index: 1;
+  justify-content: center;
 }
 
 /* MENU (TAGS) */
@@ -78,15 +66,15 @@ body {
 
 #tagmenu {
   background: #fff;
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
   z-index: 1;
-  right: 10px;
   border-radius: 3px;
   border: 1px solid #6ECCB1;
   font-family: 'Libre Franklin', sans-serif;
   padding: 12px;
+  width:150px;
 }
 
 #tagmenu a {
@@ -120,19 +108,6 @@ body {
 
 /* MENU (SHORELINES + PRESENT) */
 
-#present-menu::before {
-  content: "Layers:";
-  font-size: 13px;
-  color: #111;
-  padding: 10px;
-  font-family: 'Libre Franklin', sans-serif;
-}
-
-#present-menu {
-  top:545px;
-}
-
-
 #menu::before {
   content: "Shoreline:";
   font-size: 13px;
@@ -141,19 +116,25 @@ body {
   font-family: 'Libre Franklin', sans-serif;
 }
 
+#present-menu::before {
+  content: "Layers:";
+  font-size: 13px;
+  color: #111;
+  padding: 10px;
+  font-family: 'Libre Franklin', sans-serif;
+}
+
 .menu {
   background: #fff;
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
   z-index: 1;
-  right: 10px;
-  top: 330px;
   border-radius: 3px;
   border: 1px solid #6ECCB1;
   font-family: 'Libre Franklin', sans-serif;
   padding: 12px;
-  min-width: 110px;
+  width:150px;
 }
 
 .menu a {
@@ -169,79 +150,18 @@ body {
   text-align: center;
 }
 
-/* #menu a:hover {
-    background-color: #222;
-    color: #fff;
-    }
-      */
 .menu a.active {
   background-color: #111;
   color: #fff;
 }
 
-/* #menu a.active:hover {
-    background: #111;
-    color:#fff;
-    } */
 
-/*INDIGENOUS BUTTON*/
-
-#fly {
-  position: absolute;
-  right: 10px;
-  bottom: 25px;
-}
-
-.button {
+.past-menus {
+  gap: 1em;
   display: flex;
-  margin-top: 20px;
-  padding: 12px;
-  border-radius: 999em;
-  border: none;
-  font-size: 12px;
-  text-align: center;
-  color: #fff;
-  background-color: #12574b;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
+  float: right;
+  flex-direction: column;
+  margin-right:1em;
 }
 
-.button:hover {
-  background-color: #093029;
-}
-
-
-/* LEGEND */
-
-.legend {
-  position: absolute;
-  background-color: #fff;
-  border-radius: 3px;
-  top: 0;
-  margin-top: 10px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  /*horizontal shadow, vertical shadow, size of shadow, color*/
-  font: 12px/20px 'Libre Franklin', sans-serif;
-  padding: 30px;
-  left: 15px;
-  z-index: 999;
-  width: 400px;
-  border: 1px solid #6ECCB1;
-  display: none;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.legend div span {
-  display: inline-block;
-  border-radius: 50%;
-  /*curve border to make a circle*/
-  height: 10px;
-  /*size of circle*/
-  width: 10px;
-  margin-right: 5px;
-  /*position of circle*/
-}
 
