@@ -21,7 +21,7 @@ const map = new mapboxgl.Map({
 // adding title/logo
 
 document.getElementById('info').innerHTML = `
-<svg width="330px" height="53px" viewBox="0 0 330 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="360px" height="65px" viewBox="0 0 360 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Map Created By Ananmay Sharan and Talha Vaince for The Bentway</title>
     <g id="logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
     <g id="Group" fill-rule="nonzero">
