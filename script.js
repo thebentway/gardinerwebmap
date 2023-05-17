@@ -15,7 +15,8 @@ const map = new mapboxgl.Map({
     style: "mapbox://styles/thebentway/clf1fgyov008v01ns3szd1b9z",
     center: [-79.38633, 43.64015], // starting center in [lng, lat]
     zoom: 13,
-    maxBounds: maxBounds // Set the map's geographical boundaries.
+    maxBounds: maxBounds, // Set the map's geographical boundaries.
+    attributionControl: false
 });
 
 // adding title/logo
