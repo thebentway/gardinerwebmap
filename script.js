@@ -61,6 +61,10 @@ const control = new RangeSlider(sliderOptions, 'top-left')
 
 map.addControl(control);
 
+map.addControl(new mapboxgl.AttributionControl({
+    customAttribution: 'Map design by Ananmay Sharan and Talha Vaince for The Bentway'
+    }));
+
 // map load
 
 map.on("load", async () => {
